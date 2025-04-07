@@ -1,7 +1,5 @@
 # Ejemplo de Normalización de una Tabla SQL (1FN, 2FN, 3FN)
 
-Voy a mostrarte un ejemplo completo de una tabla que evoluciona a través de las tres formas normales principales, usando el caso de un sistema de pedidos de una tienda en línea.
-
 ## Tabla Inicial (Sin Normalizar)
 
 **Tabla: Pedidos_Clientes**
@@ -60,11 +58,6 @@ Voy a mostrarte un ejemplo completo de una tabla que evoluciona a través de las
 1. Debe estar en 1FN
 2. Eliminar dependencias parciales (atributos que dependen de parte de la clave primaria)
 
-**Cambios**:
-- En Detalles_Pedido, Precio_Unitario y Subtotal dependen solo de ID_Producto, no de la combinación ID_Pedido+ID_Producto
-- Movemos Precio_Unitario a la tabla Productos (ya hecho en 1FN)
-- Subtotal es calculado (Cantidad * Precio_Unitario) y puede eliminarse
-
 **Tablas resultantes**:
 
 **Detalles_Pedido** (modificada):
@@ -88,10 +81,6 @@ Voy a mostrarte un ejemplo completo de una tabla que evoluciona a través de las
 1. Debe estar en 2FN
 2. Eliminar dependencias transitivas (atributos que dependen de otros que no son clave)
 
-**Cambios**:
-- En Productos, Categoria_Producto podría tener su propia tabla si tuviera más atributos
-- En Clientes, la dirección podría normalizarse si fuera compuesta
-
 **Tablas resultantes**:
 
 **Categorias** (nueva tabla):
@@ -113,19 +102,3 @@ Voy a mostrarte un ejemplo completo de una tabla que evoluciona a través de las
 | C002       | María Gómez    | maria@email.com| Avenida 456, Ciudad |
 
 ---
-
-## Estructura Final Normalizada (1FN + 2FN + 3FN)
-
-1. **Pedidos** (`ID_Pedido`, Fecha_Pedido, `ID_Cliente`)
-2. **Clientes** (`ID_Cliente`, Nombre_Cliente, Email_Cliente, Direccion_Cliente)
-3. **Detalles_Pedido** (`ID_Pedido`, `ID_Producto`, Cantidad)
-4. **Productos** (`ID_Producto`, Nombre_Producto, `ID_Categoria`, Precio_Unitario)
-5. **Categorias** (`ID_Categoria`, Nombre_Categoria)
-
-**Ventajas**:
-- Eliminación de redundancias
-- Mejor integridad de datos
-- Facilidad de mantenimiento
-- Consultas más eficientes para casos específicos
-
-Este ejemplo muestra cómo una tabla inicial con problemas de diseño puede transformarse progresivamente en una estructura normalizada que cumple con las tres formas normales principales.
